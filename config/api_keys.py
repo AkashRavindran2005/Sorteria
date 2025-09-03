@@ -14,7 +14,7 @@ INSTAGRAM_APP_ID = os.getenv('INSTAGRAM_APP_ID', 'your_instagram_app_id')
 INSTAGRAM_APP_SECRET = os.getenv('INSTAGRAM_APP_SECRET', 'your_instagram_app_secret')
 INSTAGRAM_ACCESS_TOKEN = os.getenv('INSTAGRAM_ACCESS_TOKEN', 'your_instagram_access_token')
 
-YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', 'your_youtube_api_key')
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', 'AIzaSyBf0fmbqaI_DJcSkR_3cdjaZ8LFc2Hb_ns')
 
 REDDIT_CLIENT_ID = os.getenv('REDDIT_CLIENT_ID', 'your_reddit_client_id')
 REDDIT_CLIENT_SECRET = os.getenv('REDDIT_CLIENT_SECRET', 'your_reddit_client_secret')

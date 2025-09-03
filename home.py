@@ -1,19 +1,39 @@
 import streamlit as st
+from app_pages import page_home, page_misinformation_checker, page2, evidence_context
 
-st.set_page_config(page_title="Home", layout="centered")
-st.title("Welcome to the Evidence App")
+st.set_page_config(page_title="Evidence App", layout="centered")
 
-st.write("Choose an option below:")
+def main():
+    st.title("Welcome to Soteria")
 
-col1, col2, col3 = st.columns(3)
+    # Use session state to track current page to avoid conflicts
+    if "current_page" not in st.session_state:
+        st.session_state.current_page = "Home"
 
-with col1:
-    st.page_link("pages/Page1.py", label="Page 1", icon="✨")
-with col2:
-    st.page_link("pages/Page2.py", label="Page 2", icon="🗂️")
-with col3:
-    st.page_link(
-        "pages/Evidence_and_Contextualization.py",
-        label="Evidence & Contextualization", 
-        icon="🕵️"
+    page = st.sidebar.radio(
+        "Go to:", 
+        ["Home", "Misinformation Checker", "Page 2", "Evidence & Contextualization"],
+        index=["Home", "Misinformation Checker", "Page 2", "Evidence & Contextualization"].index(st.session_state.current_page)
     )
+
+    # Update current page in session state
+    if page != st.session_state.current_page:
+        st.session_state.current_page = page
+        # Clear evidence form states when navigating away
+        if page != "Evidence & Contextualization":
+            if "form_submitted" in st.session_state:
+                del st.session_state.form_submitted
+            if "submitted_data" in st.session_state:
+                del st.session_state.submitted_data
+
+    if page == "Home":
+        page_home.render()
+    elif page == "Misinformation Checker":
+        page_misinformation_checker.render()
+    elif page == "Page 2":
+        page2.render()
+    elif page == "Evidence & Contextualization":
+        evidence_context.render()
+
+if __name__ == "__main__":
+    main()

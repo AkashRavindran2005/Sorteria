@@ -1,6 +1,5 @@
 import sqlite3
 
-# Always use this database file name (create if it does not exist)
 DB_NAME = "evidence_cases.db"
 
 def init_db():
@@ -34,5 +33,5 @@ def save_case(platform, url, evidence_type, evidence_file, post_text, image_matc
     conn.commit()
     conn.close()
 
-# Call once at page load
+# Initialize DB at import
 init_db()
