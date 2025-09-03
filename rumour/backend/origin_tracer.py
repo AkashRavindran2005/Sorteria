@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 class OriginTracer:
     def __init__(self):
         self.social_graph = nx.DiGraph()
-        self.platforms = ['Twitter', 'Facebook', 'Instagram', 'YouTube', 'Reddit', 'TikTok']
+        self.platforms = ['Twitter', 'Facebook', 'Instagram', 'YouTube', 'Reddit']
     
     def trace_origin(self, content):
         origin_data = self._identify_origin(content)
