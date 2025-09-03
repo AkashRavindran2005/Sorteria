@@ -20,15 +20,12 @@ def load_components():
 def render():
     st.title("🔍 Real-Time VIP Misinformation Detection")
     
-    # User input for VIP name
     vip_input = st.text_input("Enter VIP name or handle:", "@elonmusk", help="Enter any VIP handle or name to search for")
     
-    # Advanced options
     with st.expander("🎯 Advanced Options"):
         max_posts = st.slider("Maximum posts per platform:", 10, 500, 50)
         min_engagement = st.slider("Minimum engagement threshold:", 0, 10000, 0)
         
-    # Scan button
     if st.button("🚨 Start VIP Content Scan", type="primary"):
         if not vip_input.strip():
             st.error("Please enter a VIP name or handle")
@@ -37,17 +34,14 @@ def render():
         components = load_components()
         
         with st.spinner(f"Scanning content about {vip_input}..."):
-            # Get posts
             all_posts = components['social_monitor'].get_real_vip_content([vip_input], max_posts)
             
-            # Filter by engagement
             filtered_posts = [p for p in all_posts if p.get('engagement', 0) >= min_engagement]
             
             if not filtered_posts:
                 st.warning("No posts found meeting your criteria. Try lowering the engagement threshold.")
                 return
             
-            # Analyze posts
             analyzed_posts = []
             analysis_progress = st.progress(0)
             
@@ -66,16 +60,13 @@ def render():
                 analyzed_posts.append(post)
                 analysis_progress.progress((i + 1) / len(filtered_posts))
             
-            # Store in session state
             st.session_state.analyzed_posts = sorted(analyzed_posts, key=lambda x: x['misinformation_score'], reverse=True)
             
             st.success(f"✅ Analyzed {len(analyzed_posts)} posts")
     
-    # Display results
     if 'analyzed_posts' in st.session_state and st.session_state.analyzed_posts:
         posts = st.session_state.analyzed_posts
         
-        # Summary metrics
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             high_risk = len([p for p in posts if p['misinformation_score'] >= 0.7])
@@ -90,10 +81,9 @@ def render():
             total_engagement = sum(p.get('engagement', 0) for p in posts)
             st.metric("Total Engagement", f"{total_engagement:,}")
         
-        # Show individual posts
         st.subheader("📊 Analyzed Posts")
         
-        for i, post in enumerate(posts[:20]):  # Show top 20
+        for i, post in enumerate(posts[:20]):  
             risk_score = post['misinformation_score']
             
             if risk_score >= 0.7:
@@ -128,7 +118,6 @@ def render():
                     if post.get('url'):
                         st.markdown(f"[🔗 View Original]({post['url']})")
         
-        # Origin tracing tab
         st.subheader("🌐 Origin Tracing")
         
         trace_content = st.text_area("Enter content to trace origin:", height=100)

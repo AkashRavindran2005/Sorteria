@@ -33,5 +33,4 @@ def save_case(platform, url, evidence_type, evidence_file, post_text, image_matc
     conn.commit()
     conn.close()
 
-# Initialize DB at import
 init_db()
