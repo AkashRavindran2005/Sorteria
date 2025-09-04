@@ -26,7 +26,6 @@ class RealSocialMonitor:
         self.setup_apis()
 
     def setup_apis(self):
-        # Setup Reddit
         try:
             client_id = os.getenv('REDDIT_CLIENT_ID')
             client_secret = os.getenv('REDDIT_CLIENT_SECRET')
@@ -54,7 +53,6 @@ class RealSocialMonitor:
             options.add_argument('--disable-dev-shm-usage')
             options.add_argument('--disable-gpu')
             options.binary_location = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-                
             service = Service(ChromeDriverManager().install())
             self.driver = webdriver.Chrome(service=service, options=options)
             return True
@@ -70,7 +68,7 @@ class RealSocialMonitor:
             all_posts.extend(twitter_posts)
             
             reddit_posts = self._scrape_reddit(vip, max_results // 2)
-            all_posts.extend(reddit_posts)5
+            all_posts.extend(reddit_posts)
         
         if self.driver:
             self.driver.quit()
