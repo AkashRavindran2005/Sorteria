@@ -18,15 +18,15 @@ def load_components():
     }
 
 def render():
-    st.title("🔍 Real-Time VIP Misinformation Detection")
+    st.title("Real-Time VIP Misinformation Detection")
     
     vip_input = st.text_input("Enter VIP name or handle:", "@elonmusk", help="Enter any VIP handle or name to search for")
     
-    with st.expander("🎯 Advanced Options"):
+    with st.expander("Advanced Options"):
         max_posts = st.slider("Maximum posts per platform:", 10, 500, 50)
         min_engagement = st.slider("Minimum engagement threshold:", 0, 10000, 0)
         
-    if st.button("🚨 Start VIP Content Scan", type="primary"):
+    if st.button("Start VIP Content Scan", type="primary"):
         if not vip_input.strip():
             st.error("Please enter a VIP name or handle")
             return
@@ -62,7 +62,7 @@ def render():
             
             st.session_state.analyzed_posts = sorted(analyzed_posts, key=lambda x: x['misinformation_score'], reverse=True)
             
-            st.success(f"✅ Analyzed {len(analyzed_posts)} posts")
+            st.success(f"Analyzed {len(analyzed_posts)} posts")
     
     if 'analyzed_posts' in st.session_state and st.session_state.analyzed_posts:
         posts = st.session_state.analyzed_posts
@@ -81,7 +81,7 @@ def render():
             total_engagement = sum(p.get('engagement', 0) for p in posts)
             st.metric("Total Engagement", f"{total_engagement:,}")
         
-        st.subheader("📊 Analyzed Posts")
+        st.subheader("Analyzed Posts")
         
         for i, post in enumerate(posts[:20]):  
             risk_score = post['misinformation_score']
@@ -118,11 +118,11 @@ def render():
                     if post.get('url'):
                         st.markdown(f"[🔗 View Original]({post['url']})")
         
-        st.subheader("🌐 Origin Tracing")
+        st.subheader("Origin Tracing")
         
         trace_content = st.text_area("Enter content to trace origin:", height=100)
         
-        if st.button("🕵️ Trace Origin"):
+        if st.button("Trace Origin"):
             if trace_content:
                 with st.spinner("Tracing origin..."):
                     components = load_components()
@@ -133,7 +133,7 @@ def render():
     else:
         st.info("Enter a VIP name above and click 'Start VIP Content Scan' to begin analysis")
         
-        with st.expander("ℹ️ How it works"):
+        with st.expander("How it works"):
             st.markdown('''
             **This tool searches for content about VIPs across:**
             - Twitter (via web scraping)
